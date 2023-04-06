@@ -2,20 +2,55 @@
 version: 2
 
 models:
-    - name: my_first_dbt_model
-      description: "A starter dbt model"
-      columns:
-          - name: id
-            description: "The primary key for this table"
-            tests:
-                - unique
-                - not_null
-
-    - name: my_second_dbt_model
-      description: "A starter dbt model"
-      columns:
-          - name: id
-            description: "The primary key for this table"
-            tests:
-                - unique
-                - not_null
+  - name: add_worst_pass_defenses
+    description: "Ranking NFL Defenses on QBR"
+    columns:
+      - name: season
+        tests:
+          - not_ten_records
+      - name: team
+        description: "NFL Teams"
+        tests:
+          - accepted_values:
+              values: ["Seattle Seahawks",
+"Tampa Bay Buccaneers",
+"Kansas City Chiefs",
+"Tennessee Titans",
+"Houston Texans",
+"Cleveland Browns",
+"New York Giants",
+"Chicago Bears",
+"St. Louis Rams",
+"Dallas Cowboys",
+"New Orleans Saints",
+"Pittsburgh Steelers",
+"San Francisco 49ers",
+"Miami Dolphins",
+"Green Bay Packers",
+"Washington",
+# "Washington Commanders",
+"Los Angeles Rams",
+"Arizona Cardinals",
+"Baltimore Ravens",
+"Jacksonville Jaguars",
+"Detroit Lions",
+"San Diego Chargers",
+"Indianapolis Colts",
+"Minnesota Vikings",
+"Oakland Raiders",
+"Buffalo Bills",
+"Philadelphia Eagles",
+"Washington Redskins",
+"Atlanta Falcons",
+"New York Jets",
+"Denver Broncos",
+"Carolina Panthers",
+"Cincinnati Bengals",
+"Los Angeles Chargers",
+"Las Vegas Raiders",
+"New England Patriots"]
+      - name: avg_qbr
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+              max_value: 100
